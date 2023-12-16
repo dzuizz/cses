@@ -1,4 +1,4 @@
-# Competitive Programming Solutions
+# CSES.FI Problemset Solutions
 
 ## Overview
 This repository contains my solutions to various competitive programming problems from [CSES](https://cses.fi/). These solutions are meant for educational purposes and to share different approaches to solving complex programming challenges.
