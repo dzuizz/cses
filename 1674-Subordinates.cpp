@@ -20,7 +20,6 @@ signed main(){
   int N;
   cin >> N;
 
-  
   for (int i = 2; i <= N; ++i) {
     int e; cin >> e;
     adj[e].emplace_back(i);
