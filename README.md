@@ -1,4 +1,4 @@
-# CSES.FI Solutions
+# CSES.FI Problem Set Solutions
 
 ## Overview
 
@@ -8,7 +8,7 @@ This repository contains my solutions to various competitive programming problem
 
 | Problem Type          | Number Solved |
 | --------------------- | :-----------: |
-| Introductory Problems |     13/19     |
+| Introductory Problems |     14/19     |
 | Sorting and Searching |     05/35     |
 | Dynamic Programming   |     03/19     |
 | Graph Algorithms      |     05/36     |
@@ -20,6 +20,8 @@ This repository contains my solutions to various competitive programming problem
 | Advanced Techniques   |     00/24     |
 | Additional Problems   |     00/77     |
 | **Total**             |  **037/300**  |
+
+as of 15 March 2025
 
 ## Repository Structure
 
