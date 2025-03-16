@@ -1,17 +1,15 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long
-bool vis[200000];
 signed main(){
   ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-  int n; cin >> n;
-  bool vis[n+1]; memset(vis, 0, sizeof(vis));
-  for(int i=1;i<n;++i){
-    int x; cin>>x;
-    vis[--x]=1;
+  int n,e; cin>>n;
+  int ans=n*(n+1)/2;
+  for(int _=1;_<n;++_){
+    cin>>e;
+    ans-=e;
   }
-  for(int i=0;i<n;++i) if(!vis[i])
-    cout<<i+1<<'\n';
+  cout<<ans<<'\n';
   return 0;
 }
 
