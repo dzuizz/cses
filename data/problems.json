@@ -1,0 +1,555 @@
+{
+  "generatedAt": null,
+  "totalProblems": 61,
+  "problems": [
+    {
+      "id": "1068",
+      "name": "Weird Algorithm",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1068",
+      "solutionFile": "1068-Weird_Algorithm.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  while(n>1){\n    cout<<n<<\" \";\n    n=n&1?n*3+1:n>>1;\n  }\n  cout<<\"1\\n\";\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1069",
+      "name": "Repetitions",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1069",
+      "solutionFile": "1069-Repetitions.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  string s; cin>>s;\n  int ans=0;\n  for(int i=0,run=0;i<(int)s.size();++i){\n    if(i&&s[i]==s[i-1]) ++run;\n    else run=1;\n    ans=max(ans,run);\n  }\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1070",
+      "name": "Permutations",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1070",
+      "solutionFile": "1070-Permutations.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  if(n==2||n==3) cout<<\"NO SOLUTION\\n\";\n  else{\n    for(int i=2;i<=n;i+=2) cout<<i<<\" \";\n    for(int i=1;i<=n;i+=2) cout<<i<<\" \";\n    cout<<'\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1071",
+      "name": "Number Spiral",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1071",
+      "solutionFile": "1071-Number_Spiral.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int t; cin>>t;\n  while(t--){\n    int x,y; cin>>x>>y;\n    cout<<(x>y?x&1?(x-1)*(x-1)+y:x*x-y+1:y&1?y*y-x+1:(y-1)*(y-1)+x)<<'\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1072",
+      "name": "Two Knights",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1072",
+      "solutionFile": "1072-Two_Knights.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  for(int k=1;k<=n;++k)\n    cout<<(k*k*(k*k-1)/2-4*(k-1)*(k-2))<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1074",
+      "name": "Stick Lengths",
+      "category": "Sorting and Searching",
+      "csesUrl": "https://cses.fi/problemset/task/1074",
+      "solutionFile": "1074-Stick_Lengths.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  int a[n]; for(auto&x:a) cin>>x;\n  sort(a,a+n);\n  int x=a[n/2],res=0;\n  for(int i=0;i<n;++i){\n    res+=abs(a[i]-x);\n  }\n  cout<<res<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1080",
+      "name": "Empty String",
+      "category": "String Algorithms",
+      "csesUrl": "https://cses.fi/problemset/task/1080",
+      "solutionFile": "1080-Empty_String.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int M=1e9+7;\n\ninline int add(int a,int b){\n  a+=b;\n  if(a>=M) a-=M;\n  return a;\n}\n\ninline int mul(int a,int b){\n  return a*b%M;\n}\n\nint binpow(int a,int b){\n  int res=1;\n  while(b){\n    if(b&1) res=mul(res,a);\n    a=mul(a,a),b>>=1;\n  }\n  return res;\n}\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  string s; cin>>s;\n  int n=s.size();\n  if(n&1){\n    cout<<\"0\\n\";\n    return 0;\n  }\n\n  int f[n/2+1]; f[0]=1;\n  for(int i=1;i<=n/2;++i) f[i]=mul(f[i-1],i);\n  int invf[n/2+1]; invf[0]=1;\n  for(int i=1;i<=n/2;++i) invf[i]=binpow(f[i],M-2);\n  auto C=[&](const int&N,const int&K){\n    return mul(f[N],mul(invf[K],invf[N-K]));\n  };\n\n  int dp[n][n]{};\n  for(int i=0;i<n-1;++i) if(s[i]==s[i+1]){\n    dp[i][i+1]=1;\n  }\n  for(int l=4;l<=n;l+=2){\n    for(int i=0;i<=n-l;++i){\n      int j=i+l-1;\n      for(int k=i+1;k<=j;k+=2) if(s[i]==s[k]){\n        dp[i][j]=add(dp[i][j],\n            mul((i+1<k?dp[i+1][k-1]:1),\n            mul((k<j?dp[k+1][j]:1),\n            C(l/2,(j-k)/2))));\n      }\n    }\n  }\n  //for(int i=0;i<n;++i){ for(int j=0;j<n;++j) cout<<dp[i][j]<<\" \"; cout<<'\\n'; }\n  cout<<dp[0][n-1]<<'\\n';\n  return 0;\n}\n\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1083",
+      "name": "Missing Number",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1083",
+      "solutionFile": "1083-Missing_Number.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,e; cin>>n;\n  int ans=n*(n+1)/2;\n  for(int _=1;_<n;++_){\n    cin>>e;\n    ans-=e;\n  }\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1084",
+      "name": "Apartments",
+      "category": "Sorting and Searching",
+      "csesUrl": "https://cses.fi/problemset/task/1084",
+      "solutionFile": "1084-Apartments.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,m,k; cin>>n>>m>>k;\n  int a[n]; for(auto&x:a) cin>>x;\n  int b[m]; for(auto&x:b) cin>>x;\n  sort(a,a+n); sort(b,b+m);\n  int ans=0,i=0;\n  for(auto&x:a){\n    while(i<m&&b[i]+k<x) ++i;\n    if(i<m&&x-k<=b[i]&&b[i]<=x+k) ++ans,++i;\n  }\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1090",
+      "name": "Ferris Wheel",
+      "category": "Sorting and Searching",
+      "csesUrl": "https://cses.fi/problemset/task/1090",
+      "solutionFile": "1090-Ferris_Wheel.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,x; cin>>n>>x;\n  int a[n]; for(auto&e:a) cin>>e;\n  sort(a,a+n);\n  int ans=0;\n  for(int i=0,j=n-1;i<=j;++i,--j){\n    while(i<=j&&a[i]+a[j]>x) --j,++ans;\n    if(i<=j) ++ans;\n  }\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1091",
+      "name": "Concert Tickets",
+      "category": "Sorting and Searching",
+      "csesUrl": "https://cses.fi/problemset/task/1091",
+      "solutionFile": "1091-Concert_Tickets.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,m; cin>>n>>m;\n  map<int,int>mp;\n  while(n--){\n    int x; cin>>x;\n    ++mp[-x];\n  }\n  while(m--){\n    int x; cin>>x;\n    auto it=mp.lower_bound(-x);\n    if(it==mp.end()) cout<<\"-1\\n\";\n    else{\n      cout<<-it->first<<'\\n';\n      if(!--it->second) mp.erase(it);\n    }\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1092",
+      "name": "Two Sets",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1092",
+      "solutionFile": "1092-Two_Sets.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  if((n*(n+1)/2)&1) cout<<\"NO\\n\";\n  else{\n    vector<int> a,b;\n    int x=n*(n+1)/4;\n    for(int i=n;i>=1;--i){\n      if(x>=i){\n        a.emplace_back(i);\n        x-=i;\n      }else b.emplace_back(i);\n    }\n    cout<<\"YES\\n\";\n    cout<<(int)a.size()<<'\\n';\n    for(auto&x:a) cout<<x<<\" \";\n    cout<<'\\n';\n    cout<<(int)b.size()<<'\\n';\n    for(auto&x:b) cout<<x<<\" \";\n    cout<<'\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1094",
+      "name": "Increasing Array",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1094",
+      "solutionFile": "1094-Increasing_Array.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  int ans=0;\n  for(int i=0,p=0;i<n;++i){\n    int x; cin>>x;\n    if(i) ans+=max(0ll,p-x);\n    p=max(p,x);\n  }\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1095",
+      "name": "Exponentiation",
+      "category": "Mathematics",
+      "csesUrl": "https://cses.fi/problemset/task/1095",
+      "solutionFile": "1095-Exponentiation.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nint binpow(int a, int b, int m){\n  if(b==0) return 1;\n  if(b==1) return a;\n  int tmp=binpow(a, b>>1, m);\n  tmp = tmp * tmp % m;\n  if(b&1) tmp = tmp * a % m;\n  return tmp;\n}\nsigned main() {\n  int n; cin>>n;\n  for(int i=0;i<n;++i){\n    int a,b; cin>>a>>b;\n    cout<<binpow(a,b,1e9+7)<<'\\n';\n  }\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1131",
+      "name": "Tree Diameter",
+      "category": "Tree Algorithms",
+      "csesUrl": "https://cses.fi/problemset/task/1131",
+      "solutionFile": "1131-Tree_Diameter.cpp",
+      "solutionCode": "#include <bits/stdc++.h>\nusing namespace std;\n\n#define int long long\n\nconst int MAXN = 2e5+5;\nvector<int> adj[MAXN];\n\npair<int, int> dfs(int i, int p) {\n  pair<int, int> ret = {0, i};\n  for (int &x: adj[i]) {\n    if (x == p) continue;\n    pair<int, int> tmp = dfs(x, i);\n    ++tmp.first;\n    ret = max(ret, tmp);\n  }\n  return ret;\n}\n\nsigned main() {\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n\n  int N;\n  cin >> N;\n\n  for (int i = 1; i < N; ++i) {\n    int u, v; cin >> u >> v;\n    adj[u].emplace_back(v);\n    adj[v].emplace_back(u);\n  }\n\n  pair<int, int> d1 = dfs(1, 0);\n  pair<int, int> d2 = dfs(d1.second, 0);\n\n  cout << d2.first << '\\n';\n  return 0;\n}\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1135",
+      "name": "Distance Queries",
+      "category": "Tree Algorithms",
+      "csesUrl": "https://cses.fi/problemset/task/1135",
+      "solutionFile": "1135-Distance_Queries.cpp",
+      "solutionCode": "#include <bits/stdc++.h>\nusing namespace std;\n#define int long long\nconst int MAXN=200005;\nconst int LOG=18;\nvector<int> adj[MAXN];\nint pa[MAXN][LOG], dep[MAXN];\nvoid dfs(int i){\n  for(auto&x:adj[i]){\n    if(x==pa[i][0]) continue;\n    pa[x][0]=i;\n    dep[x]=dep[i]+1;\n    dfs(x);\n  }\n}\nint lca(int a,int b){\n  if(dep[a]<dep[b]) swap(a,b);\n  for(int j=LOG-1;j>=0;--j)\n    if(dep[pa[a][j]]>=dep[b])\n      a=pa[a][j];\n  if(a==b) return a;\n  for(int j=LOG-1;j>=0;--j)\n    if(pa[a][j]!=pa[b][j])\n      a=pa[a][j],b=pa[b][j];\n  return pa[a][0];\n}\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  for(int i=1;i<n;++i){\n    int u,v; cin>>u>>v;\n    adj[u].emplace_back(v);\n    adj[v].emplace_back(u);\n  }\n  pa[1][0]=1;\n  dfs(1);\n  for(int j=0;j<LOG-1;++j)\n    for(int i=1;i<=n;++i)\n      pa[i][j+1]=pa[pa[i][j]][j];\n  while(q--){\n    int u,v; cin>>u>>v;\n    cout<<dep[u]+dep[v]-2*dep[lca(u,v)]<<'\\n';\n  }\n  return 0;\n}\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1143",
+      "name": "Hotel Queries",
+      "category": "Range Queries",
+      "csesUrl": "https://cses.fi/problemset/task/1143",
+      "solutionFile": "1143-Hotel_Queries.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nstruct node{\n  int l,r,v,m;\n  node *lf,*rg;\n  node(int _l,int _r,int a[]): l(_l),r(_r),m((_l+_r)>>1),v(0){\n    if(l==r) v=a[l];\n    else\n      lf=new node(l,m,a),\n      rg=new node(m+1,r,a),\n      v=max(lf->v,rg->v);\n  }\n  int qry(int x){\n    if(l==r){\n      return l;\n    }\n    return (lf->v<x?rg->qry(x):lf->qry(x));\n  }\n  void upd(int x,int cv){\n    if(l==r){\n      v=cv;\n      return;\n    }\n    (x<=m?lf:rg)->upd(x,cv);\n    v=max(lf->v,rg->v);\n  }\n}*root;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,m; cin>>n>>m;\n  int a[n];\n  for(int i=0;i<n;++i) cin>>a[i];\n  root=new node(0,n-1,a);\n  while(m--){\n    int x; cin>>x;\n    if(x>root->v) cout<<\"0 \";\n    else{\n      int u=root->qry(x);\n      a[u]-=x;\n      root->upd(u,a[u]);\n      cout<<u+1<<\" \";\n    }\n  }\n  cout<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1158",
+      "name": "Book Shop",
+      "category": "Dynamic Programming",
+      "csesUrl": "https://cses.fi/problemset/task/1158",
+      "solutionFile": "1158-Book_Shop.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,x; cin>>n>>x;\n  int p[n],c[n];\n  for(int i=0;i<n;++i) cin>>p[i];\n  for(int i=0;i<n;++i) cin>>c[i];\n  int dp[x+1]{};\n  dp[0]=0;\n  for(int i=0;i<n;++i){\n    for(int j=x;j>=p[i];--j){\n      dp[j]=max(dp[j],dp[j-p[i]]+c[i]);\n    }\n  }\n  cout<<*max_element(dp,dp+x+1)<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1163",
+      "name": "Traffic Lights",
+      "category": "Sorting and Searching",
+      "csesUrl": "https://cses.fi/problemset/task/1163",
+      "solutionFile": "1163-Traffic_Lights.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int x,n; cin>>x>>n;\n  int a[n];\n  for(int i=0;i<n;++i) cin>>a[i];\n  map<int,bool> mp;\n  map<int,int> c;\n  mp[0]=1,mp[x]=1,c[x]=1;\n  for(int i=0;i<n;++i){\n    auto rg=mp.lower_bound(a[i]),lf=rg; --lf;\n    if(!--c[rg->first-lf->first]) c.erase(rg->first-lf->first);\n    ++c[rg->first-a[i]],++c[a[i]-lf->first];\n    mp[a[i]]=1;\n    cout<<c.rbegin()->first<<\" \";\n  }\n  cout<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1192",
+      "name": "Counting Rooms",
+      "category": "Graph Algorithms",
+      "csesUrl": "https://cses.fi/problemset/task/1192",
+      "solutionFile": "1192-Counting_Rooms.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\npair<int, int> dir[]={\n  {0, 1},\n  {1, 0},\n  {0, -1},\n  {-1, 0}\n};\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int N,M; cin>>N>>M;\n\n  bool vis[N][M]; memset(vis, 0, sizeof(vis));\n  for(int i=0; i<N; ++i) for(int j=0; j<M; ++j) {\n    char c; cin>>c;\n    vis[i][j]=c=='#';\n  }\n\n  int ans = 0;  // # of c.c\n  queue<pair<int,int>> q;\n  for(int i=0; i<N; ++i) for(int j=0; j<M; ++j) {\n    if(vis[i][j]) continue;\n    vis[i][j] = 1;\n    ++ans;\n    q.emplace(i, j);\n    while(q.size()){\n      pair<int, int> cur = q.front(); q.pop();\n      for(auto &p:dir){\n        int nxi = cur.first + p.first;\n        int nxj = cur.second + p.second;\n        if (0 <= nxi && nxi < N && 0 <= nxj && nxj < M && !vis[nxi][nxj]){\n          q.emplace(nxi,nxj);\n          vis[nxi][nxj] = 1;\n        }\n      }\n    }\n  }\n  cout << ans << '\\n';\n  return 0;\n}\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1617",
+      "name": "Bit Strings",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1617",
+      "solutionFile": "1617-Bit_Strings.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconst int m=1e9+7;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  int a=2,ans=1;\n  while(n){\n    if(n&1) ans=ans*a%m;\n    a=a*a%m,n>>=1;\n  }\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1618",
+      "name": "Trailing Zeros",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1618",
+      "solutionFile": "1618-Trailing_Zeros.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  int ans=0;\n  for(int i=5;i<=n;i*=5)\n    for(int j=i;j<=n;j+=i) ++ans;\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1621",
+      "name": "Distinct Numbers",
+      "category": "Sorting and Searching",
+      "csesUrl": "https://cses.fi/problemset/task/1621",
+      "solutionFile": "1621-Distinct_Numbers.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  map<int,bool> mp;\n  while(n--){\n    int e; cin>>e;\n    mp[e]=1;\n  }\n  cout<<(int)mp.size()<<'\\n';\n  return 0;\n}\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1622",
+      "name": "Creating Strings",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1622",
+      "solutionFile": "1622-Creating_Strings.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  string s; cin>>s;\n  sort(s.begin(),s.end());\n  map<string,bool> mp;\n  do{\n    mp[s]=1;\n  }while(next_permutation(s.begin(),s.end()));\n  cout<<mp.size()<<'\\n';\n  for(auto&p:mp)\n    cout<<p.first<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1623",
+      "name": "Apple Division",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1623",
+      "solutionFile": "1623-Apple_Division.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,ans=INT64_MAX; cin>>n;\n  int a[n]; for(auto&x:a) cin>>x;\n  for(int msk=0;msk<(1<<n);++msk){\n    int v[2]{};\n    for(int i=0;i<n;++i) v[msk>>i&1]+=a[i];\n    ans=min(ans,abs(v[0]-v[1]));\n  }\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1624",
+      "name": "Chessboard and Queens",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1624",
+      "solutionFile": "1624-Chessboard_and_Queens.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  string a[8]; for(auto&x:a) cin>>x;\n  int p[8],ans=0; iota(p,p+8,0);\n  do{\n    bool f=1;\n    for(int i=0;i<8&&f;++i) f=(a[i][p[i]]=='.');\n    if(!f) continue;\n    map<int,bool> x,y;\n    for(int i=0;i<8;++i) x[i+p[i]]=1,y[i-p[i]]=1;\n    if(x.size()<8||y.size()<8) continue;\n    ++ans;\n  }while(next_permutation(p,p+8));\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1629",
+      "name": "Movie Festival",
+      "category": "Sorting and Searching",
+      "csesUrl": "https://cses.fi/problemset/task/1629",
+      "solutionFile": "1629-Movie_Festival.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  pair<int,int>a[n];\n  for(auto&p:a)\n    cin>>p.second>>p.first;\n  sort(a,a+n);\n  int ans=0,p=0,i=0;\n  while(i<n){\n    ++ans,p=a[i++].first;\n    while(i<n&&a[i].second<p) ++i;\n  }\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1633",
+      "name": "Dice Combinations",
+      "category": "Dynamic Programming",
+      "csesUrl": "https://cses.fi/problemset/task/1633",
+      "solutionFile": "1633-Dice_Combinations.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconst int m=1e9+7;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  int dp[n+1]; dp[0]=1;\n  for(int i=1;i<=n;++i){\n    dp[i]=0;\n    for(int j=1;j<7&&i>=j;++j)\n      dp[i]+=dp[i-j],dp[i]%=m;\n  }\n  cout<<dp[n]<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1634",
+      "name": "Minimizing Coins",
+      "category": "Dynamic Programming",
+      "csesUrl": "https://cses.fi/problemset/task/1634",
+      "solutionFile": "1634-Minimizing_Coins.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,x; cin>>n>>x;\n  vector<int> dp(x+1,3e18);\n  dp[0]=0;\n  for(int i=0;i<n;++i){\n    int e; cin>>e;\n    for(int j=e;j<=x;++j)\n      dp[j]=min(dp[j],dp[j-e]+1);\n  }\n  cout<<(dp[x]==3e18?-1:dp[x])<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1635",
+      "name": "Coin Combinations I",
+      "category": "Dynamic Programming",
+      "csesUrl": "https://cses.fi/problemset/task/1635",
+      "solutionFile": "1635-Coin_Combinations_I.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int M=1e9+7;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,x; cin>>n>>x;\n  int a[n]; for(int i=0;i<n;++i) cin>>a[i];\n  int dp[x+1]; dp[0]=1;\n  for(int i=1;i<=x;++i){\n    dp[i]=0;\n    for(int j=0;j<n;++j){\n      if(a[j]<=i){\n        dp[i]+=dp[i-a[j]],\n        dp[i]%=M;\n      }\n    }\n  }\n  cout<<dp[x]%M<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1636",
+      "name": "Coin Combinations II",
+      "category": "Dynamic Programming",
+      "csesUrl": "https://cses.fi/problemset/task/1636",
+      "solutionFile": "1636-Coin_Combinations_II.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int M=1e9+7;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,x; cin>>n>>x;\n  int a[n]; for(int i=0;i<n;++i) cin>>a[i];\n  int dp[x+1]{}; dp[0]=1;\n  for(int j=0;j<n;++j){\n    for(int i=1;i<=x;++i){\n      if(a[j]<=i){\n        dp[i]+=dp[i-a[j]],\n        dp[i]%=M;\n      }\n    }\n  }\n  cout<<dp[x]%M<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1637",
+      "name": "Removing Digits",
+      "category": "Dynamic Programming",
+      "csesUrl": "https://cses.fi/problemset/task/1637",
+      "solutionFile": "1637-Removing_Digits.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,res=0; cin>>n;\n  while(n){\n    int tn=n/10,v=n%10;\n    while(tn) v=max(v,tn%10),tn/=10;\n    n-=v,++res;\n  }\n  cout<<res<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1638",
+      "name": "Grid Paths I",
+      "category": "Dynamic Programming",
+      "csesUrl": "https://cses.fi/problemset/task/1638",
+      "solutionFile": "1638-Grid_Paths_I.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int M=1e9+7;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  string g[n];\n  for(auto&x:g) cin>>x;\n  int dp[n][n]{}; dp[0][0]=(g[0][0]=='.');\n  g[0][0]='s';\n  for(int i=0;i<n;++i) for(int j=0;j<n;++j){\n    if(g[i][j]=='.') dp[i][j]=((i?dp[i-1][j]:0)+(j?dp[i][j-1]:0))%M;\n  }\n  cout<<dp[n-1][n-1]<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1639",
+      "name": "Edit Distance",
+      "category": "Dynamic Programming",
+      "csesUrl": "https://cses.fi/problemset/task/1639",
+      "solutionFile": "1639-Edit_Distance.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  string s, t;\n  cin >> s >> t;\n  int n = s.size(), m = t.size();\n  int dp[n+1][m+1];\n  for(int i=0;i<=n;++i) dp[i][0]=i;\n  for(int j=0;j<=m;++j) dp[0][j]=j;\n  for(int i=1; i<=n; ++i) for(int j=1; j<=m; ++j) {\n    if(s[i-1]==t[j-1])\n      dp[i][j] = dp[i-1][j-1];\n    else\n      dp[i][j] = min({dp[i-1][j], dp[i][j-1],dp[i-1][j-1]}) + 1;\n  }\n  cout << dp[n][m] << '\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1640",
+      "name": "Sum of Two Values",
+      "category": "Sorting and Searching",
+      "csesUrl": "https://cses.fi/problemset/task/1640",
+      "solutionFile": "1640-Sum_of_Two_Values.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,x; cin>>n>>x;\n  map<int,int>mp;\n  int a=0,b=0;\n  for(int i=1;i<=n;++i){\n    int e; cin>>e;\n    if(mp[x-e]) a=i,b=mp[x-e];\n    mp[e]=i;\n  }\n  if(a+b) cout<<a<<\" \"<<b<<'\\n';\n  else cout<<\"IMPOSSIBLE\\n\";\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1644",
+      "name": "Maximum Subarray Sum II",
+      "category": "Sorting and Searching",
+      "csesUrl": "https://cses.fi/problemset/task/1644",
+      "solutionFile": "1644-Maximum_Subarray_Sum_II.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,a,b; cin>>n>>a>>b;\n  priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;\n  int res=-3e18,ps[n+1]{};\n  for(int i=1;i<=n;++i){\n    cin>>ps[i];\n    ps[i]+=ps[i-1];\n    while(pq.size()&&i-pq.top().second>b) pq.pop();\n    if(i>=a){\n      pq.emplace(ps[i-a],i-a);\n      res=max(res,ps[i]-pq.top().first);\n    }\n  }\n  cout<<res<<'\\n';\n  return 0;\n}\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1645",
+      "name": "Nearest Smaller Value",
+      "category": "Sorting and Searching",
+      "csesUrl": "https://cses.fi/problemset/task/1645",
+      "solutionFile": "1645-Nearest_Smaller_Value.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  int a[n+1]; a[0]=0;\n  stack<int> st; st.emplace(0);\n  for(int i=1;i<=n;++i){\n    cin>>a[i];\n    while(a[st.top()]>=a[i]) st.pop();\n    cout<<st.top()<<\" \";\n    st.emplace(i);\n  }\n  cout<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1646",
+      "name": "Static Range Sum Queries",
+      "category": "Range Queries",
+      "csesUrl": "https://cses.fi/problemset/task/1646",
+      "solutionFile": "1646-Static_Range_Sum_Queries.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int a[n+1];a[0]=0;\n  for(int i=1;i<=n;++i){\n    cin>>a[i];\n    a[i]+=a[i-1];\n  }\n  while(q--){\n    int l,r; cin>>l>>r;\n    cout<<a[r]-a[l-1]<<'\\n';\n  }\n  return 0;\n}\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1647",
+      "name": "Static Range Minimum Queries",
+      "category": "Range Queries",
+      "csesUrl": "https://cses.fi/problemset/task/1647",
+      "solutionFile": "1647-Static_Range_Minimum_Queries.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int st[n][__lg(n)+1];\n  for(int i=0;i<n;++i) cin>>st[i][0];\n  for(int j=1;(1<<j)<=n;++j) for(int i=0;i+(1<<j)<=n;++i)\n    st[i][j]=min(st[i][j-1],st[i+(1<<(j-1))][j-1]);\n  while(q--){\n    int a,b; cin>>a>>b; --a,--b;\n    int k=__lg(b-a+1);\n    cout<<min(st[a][k],st[b-(1<<k)+1][k])<<'\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1648",
+      "name": "Dynamic Range Sum Queries",
+      "category": "Range Queries",
+      "csesUrl": "https://cses.fi/problemset/task/1648",
+      "solutionFile": "1648-Dynamic_Range_Sum_Queries.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\n\nconst int MAXN = 200005;\nint N, Q, fw[MAXN];\n\nvoid add(int idx, int v) {\n  for (++idx; idx <= N; idx += idx & -idx)\n    fw[idx] += v;\n}\nint sum(int idx) {\n  int ret = 0;\n  for (++idx; idx > 0; idx -= idx & -idx)\n    ret += fw[idx];\n  return ret;\n}\nint sum(int l, int r) {\n  return sum(r) - sum(l - 1);\n}\n\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  \n  cin >> N >> Q;\n\n  int A[N];\n  for (int i = 0; i < N; ++i) {\n    cin >> A[i];\n    add(i, A[i]);\n  }\n\n  while (Q--) {\n    int t; cin >> t;\n    if (t == 1) {\n      int k, u;\n      cin >> k >> u; --k;\n      add(k, u - A[k]);\n      A[k] = u;\n    } else if (t == 2) {\n      int a, b;\n      cin >> a >> b; --a, --b;\n      cout << sum(a, b) << '\\n';\n    }\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1649",
+      "name": "Dynamic Range Minimum Queries",
+      "category": "Range Queries",
+      "csesUrl": "https://cses.fi/problemset/task/1649",
+      "solutionFile": "1649-Dynamic_Range_Minimum_Queries.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int SZ=447;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int x[n]; for(int i=0;i<n;++i) cin>>x[i];\n  int m=(n+SZ-1)/SZ,mn[m]; memset(mn,0x3f,sizeof mn);\n  for(int i=0;i<n;++i){\n    int j=i/SZ;\n    mn[j]=min(mn[j],x[i]);\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1652",
+      "name": "Forest Queries",
+      "category": "Range Queries",
+      "csesUrl": "https://cses.fi/problemset/task/1652",
+      "solutionFile": "1652-Forest_Queries.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n\n  int N, Q;\n  cin >> N >> Q;\n\n  int prefSum[N+1][N+1];\n  memset(prefSum, 0, sizeof prefSum);\n\n  for (int i = 1; i <= N; ++i) {\n    for (int j = 1; j <= N; ++j) {\n      char c; cin >> c;\n      prefSum[i][j] = prefSum[i-1][j] + prefSum[i][j-1] + (c == '*') - prefSum[i-1][j-1];\n    }\n  }\n\n  while (Q--) {\n    int i1, j1, i2, j2;\n    cin >> i1 >> j1 >> i2 >> j2;\n    cout << prefSum[i2][j2] - prefSum[i1-1][j2] - prefSum[i2][j1-1] + prefSum[i1-1][j1-1] << '\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1671",
+      "name": "Shortest Routes I",
+      "category": "Graph Algorithms",
+      "csesUrl": "https://cses.fi/problemset/task/1671",
+      "solutionFile": "1671-Shortest_Routes_I.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,m; cin>>n>>m;\n  vector<pair<int,int>> adj[n];\n  for(int i=0; i<m; ++i){\n    int a,b,c; cin>>a>>b>>c;\n    adj[--a].emplace_back(c,--b);\n  }\n  for(int i=0; i<n; ++i)\n    sort(adj[i].begin(),adj[i].end());\n  int dis[n]; memset(dis,0x3f,sizeof dis);\n  dis[0] = 0;\n  priority_queue<pair<int,int>>pq;\n  pq.emplace(0,0);\n  while(pq.size()){\n    pair<int,int> cur=pq.top(); pq.pop();\n    if(-cur.first>dis[cur.second]) continue;\n    for(auto&p:adj[cur.second]){\n      if(-cur.first+p.first>=dis[p.second]) continue;\n      dis[p.second]=p.first-cur.first;\n      pq.emplace(-dis[p.second],p.second);\n    }\n  }\n  for(int i=0; i<n; ++i)\n    cout<<dis[i]<<\" \";\n  cout<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1674",
+      "name": "Subordinates",
+      "category": "Tree Algorithms",
+      "csesUrl": "https://cses.fi/problemset/task/1674",
+      "solutionFile": "1674-Subordinates.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\n\nconst int N = 2e5+5;\nvector<int> adj[N];\nint sz[N];\n\nvoid dfs(int i) {\n  sz[i] = 0;\n  for (auto &x : adj[i]) {\n    dfs(x);\n    sz[i] += sz[x] + 1;\n  }\n}\n\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n\n  int N;\n  cin >> N;\n\n  for (int i = 2; i <= N; ++i) {\n    int e; cin >> e;\n    adj[e].emplace_back(i);\n  }\n   \n  dfs(1);\n  for(int i = 1; i <= N; ++i)\n    cout << sz[i] << \" \";\n  cout << '\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1679",
+      "name": "Course Schedule",
+      "category": "Graph Algorithms",
+      "csesUrl": "https://cses.fi/problemset/task/1679",
+      "solutionFile": "1679-Course_Schedule.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nvector<int> topo_sort(int n, vector<vector<int>> &adj) {\n    vector<int> in(n, 0), res;\n    for (auto &v : adj) for (int u : v) in[u]++;\n    queue<int> q;\n    for (int i = 0; i < n; i++) if (!in[i]) q.push(i);\n    while (!q.empty()) {\n        int v = q.front(); q.pop(); res.push_back(v);\n        for (int u : adj[v]) if (--in[u] == 0) q.push(u);\n    }\n    return res.size() == n ? res : vector<int>();\n}\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,m; cin>>n>>m;\n  vector<vector<int>> adj(n);\n  for(int i=0;i<m;++i){\n    int a,b; cin>>a>>b;\n    --a,--b;\n    adj[a].emplace_back(b);\n  }\n  vector<int> topo_order=topo_sort(n,adj);\n  if(topo_order.size()){\n    for(auto&x:topo_order) cout<<x+1<<\" \";\n    cout<<'\\n';\n  }else{\n    cout<<\"IMPOSSIBLE\\n\";\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1687",
+      "name": "Company Queries I",
+      "category": "Tree Algorithms",
+      "csesUrl": "https://cses.fi/problemset/task/1687",
+      "solutionFile": "1687-Company_Queries_I.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int pa[n+1][18]; pa[0][0] = pa[1][0] = 0;\n  for(int i=2; i<=n; ++i) {\n    cin>>pa[i][0];\n  }\n  for(int j=0; j<17; ++j) for(int i=0; i<=n; ++i)\n    pa[i][j+1] = pa[pa[i][j]][j];\n\n  while(q--) {\n    int x,k; cin>>x>>k;\n    int ans=x;\n    for(int j=0; j<18; ++j) if(k>>j&1)\n      ans=pa[ans][j];\n    cout<<(ans?ans:-1)<<'\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1688",
+      "name": "Company Queries II",
+      "category": "Tree Algorithms",
+      "csesUrl": "https://cses.fi/problemset/task/1688",
+      "solutionFile": "1688-Company_Queries_II.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconst int MAXN=2e5;\nconst int LOG=18;\nvector<int> adj[MAXN];\nint n, q, pa[MAXN][LOG], dep[MAXN];\nvoid dfs(int i) {\n  for(auto &x : adj[i]) {\n    if(x == pa[i][0]) continue;\n    pa[x][0] = i;\n    dep[x] = dep[i] + 1;\n    dfs(x);\n  }\n}\nint lca(int a, int b) {\n  if(dep[a] > dep[b])\n    swap(a, b);\n  for(int j=LOG-1; j>=0; --j) if(dep[pa[b][j]] >= dep[a])\n    b = pa[b][j];\n  if(a == b) return a;\n  for(int j=LOG-1; j>=0; --j) if(pa[a][j] != pa[b][j])\n    a = pa[a][j], b = pa[b][j];\n  return pa[a][0];\n}\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  cin >> n >> q;\n  for(int i=1; i<n; ++i) {\n    int e; cin >> e; --e;\n    adj[e].emplace_back(i);\n    adj[i].emplace_back(e);\n  }\n\n  dep[0] = 0, pa[0][0] = 0;\n  dfs(0);\n  for(int j=0; j<LOG-1; ++j) for(int i=0; i<n; ++i)\n    pa[i][j+1] = pa[pa[i][j]][j];\n\n  while(q--) {\n    int a, b; cin >> a >> b;\n    cout << lca(--a, --b) + 1 << '\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1690",
+      "name": "Hamiltonian Flights",
+      "category": "Dynamic Programming",
+      "csesUrl": "https://cses.fi/problemset/task/1690",
+      "solutionFile": "1690-Hamiltonian_Flights.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int M=1e9+7;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,m; cin>>n>>m;\n  vector<int> p[n];\n  for(int i=0;i<m;++i){\n    int u,v; cin>>u>>v;\n    p[--v].emplace_back(--u);\n  }\n  int dp[1<<n][n]; memset(dp,0,sizeof dp);\n  dp[1][0]=1;\n  for(int msk=0;msk<(1<<n);++msk){\n    if((msk>>(n-1)&1)&&msk!=((1<<n)-1)) continue;\n    for(int i=1;i<n;++i) if(msk>>i&1){\n      int p_msk=msk^(1<<i);\n      for(int&j:p[i]){\n        dp[msk][i]=(dp[msk][i]+dp[p_msk][j])%M;\n      }\n    }\n  }\n  cout<<dp[(1<<n)-1][n-1]<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1712",
+      "name": "Exponentiation II",
+      "category": "Mathematics",
+      "csesUrl": "https://cses.fi/problemset/task/1712",
+      "solutionFile": "1712-Exponentiation_II.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int MOD=1e9+7;\nint binpow(int&a,int b,int m){\n  int ret=1;\n  while(b){\n    if(b&1)ret=ret*a%m;\n    a=a*a%m,b>>=1;\n  }\n  return ret;\n}\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int t; cin>>t;\n  while(t--){\n    int a,b,c; cin>>a>>b>>c;\n    cout<<binpow(a,binpow(b,c,MOD-1),MOD)<<'\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1713",
+      "name": "Counting Divisors",
+      "category": "Mathematics",
+      "csesUrl": "https://cses.fi/problemset/task/1713",
+      "solutionFile": "1713-Counting_Divisors.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nint p[1000001];\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  for(int i=2;i<1000001;++i) if(!p[i]) for(int j=i;j<1000001;j+=i)\n    p[j]=i;\n  int n; cin>>n;\n  for(;n;--n){\n    int x,ans=1; cin>>x;\n    for(int i=0,res=1,k=p[x];k;++i,ans*=res,res=1,k=p[x]) while(x%k==0)\n      x/=k,++res;\n    cout<<ans<<'\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1746",
+      "name": "Array Description",
+      "category": "Dynamic Programming",
+      "csesUrl": "https://cses.fi/problemset/task/1746",
+      "solutionFile": "1746-Array_Description.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int M=1e9+7;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,m; cin>>n>>m;\n  int a[n]; for(auto&x:a) cin>>x;\n  int dp[n][m+2]{};\n  if(a[0]==0) for(int j=1;j<=m;++j) dp[0][j]=1;\n  else dp[0][a[0]]=1;\n  for(int i=1;i<n;++i){\n    if(a[i]==0) for(int j=1;j<=m;++j){\n      dp[i][j]=(dp[i-1][j-1]+dp[i-1][j]+dp[i-1][j+1])%M;\n    }else dp[i][a[i]]=(dp[i-1][a[i]-1]+dp[i-1][a[i]]+dp[i-1][a[i]+1])%M;\n  }\n  int ans=0;\n  for(int j=1;j<=m;++j) ans+=dp[n-1][j],ans%=M;\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1750",
+      "name": "Planets Queries I",
+      "category": "Tree Algorithms",
+      "csesUrl": "https://cses.fi/problemset/task/1750",
+      "solutionFile": "1750-Planets_Queries_I.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int pa[n][32];\n  for(int i=0;i<n;++i){\n    cin>>pa[i][0];\n    --pa[i][0];\n  }\n  for(int j=0;j<31;++j) for(int i=0;i<n;++i)\n    pa[i][j+1]=pa[pa[i][j]][j];\n  while(q--){\n    int x,k; cin>>x>>k; --x;\n    for(int i=0;i<32;++i) if(k>>i&1){\n      x=pa[x][i];\n    }\n    cout<<x+1<<'\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1754",
+      "name": "Coin Piles",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1754",
+      "solutionFile": "1754-Coin_Piles.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int t; cin>>t;\n  while(t--){\n    int a,b; cin>>a>>b;\n    if(a<b) swap(a,b);\n    cout<<(a<=2*b&&(2*b-a)%3==0?\"YES\\n\":\"NO\\n\");\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1755",
+      "name": "Palindrome Reorder",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1755",
+      "solutionFile": "1755-Palindrome_Reorder.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  string s; cin>>s;\n  int cnt[26]{};\n  for(auto&c:s) ++cnt[c-'A'];\n  int o=0;\n  for(auto&x:cnt) o+=x&1;\n  if(o>1) cout<<\"NO SOLUTION\\n\";\n  else{\n    string ans=\"\";\n    for(int i=0;i<26;++i) if(cnt[i]&1^1) for(int j=0;j<cnt[i]>>1;++j)\n      ans+=(char)('A'+i);\n    cout<<ans;\n    for(int i=0;i<26;++i) if(cnt[i]&1) for(int j=0;j<cnt[i];++j)\n      cout<<(char)('A'+i);\n    reverse(ans.begin(),ans.end());\n    cout<<ans<<'\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "2064",
+      "name": "Bracket Sequences I",
+      "category": "Advanced Techniques",
+      "csesUrl": "https://cses.fi/problemset/task/2064",
+      "solutionFile": "2064-Bracket_Sequences_I.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int unsigned long long\nconst int m=1e9+7;\nint binpow(int a,int b){\n  int ret=1;\n  while(b){\n    if(b&1) ret=ret*a%m;\n    a=a*a%m,b>>=1;\n  }\n  return ret;\n}\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  if(n&1){  // n is odd <=> no valid bracket sequences\n    cout<<\"0\\n\";\n    return 0;\n  }\n  int ans=1;\n  for(int i=2; i<=(n>>1); ++i){\n    ans = ans * (4*i-2) % m;\n    ans = ans * binpow(i+1,m-2) % m;\n  }\n  cout << ans << '\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "2101",
+      "name": "New Roads Queries",
+      "category": "Advanced Techniques",
+      "csesUrl": "https://cses.fi/problemset/task/2101",
+      "solutionFile": "2101-New_Roads_Queries.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int LOG=20;\n\nnamespace dsu{\n  vector<int> pa,sz;\n  int n;\n  void init(int _n){\n    n=_n;\n    pa=vector<int>(n); iota(pa.begin(),pa.end(),0);\n    sz=vector<int>(n,1);\n  }\n  int f(int x){ return pa[x]==x?x:pa[x]=f(pa[x]); }\n  bool m(int a,int b){\n    int fa=f(a),fb=f(b);\n    if(fa==fb) return 0;\n    if(sz[fa]<sz[fb]) swap(fa,fb);\n    pa[fb]=fa;\n    sz[fa]+=sz[fb];\n    return 1;\n  }\n};\n\nnamespace mst{\n  vector<array<int,LOG>> pa,di;\n  vector<int> dep;\n  int n;\n  void init(int _n){\n    n=_n;\n    pa=vector<array<int,LOG>>(n);\n    di=vector<array<int,LOG>>(n);\n    dep=vector<int>(n,-1);\n    for(int i=0;i<n;++i){\n      pa[i].fill(-1);\n      di[i].fill(0);\n    }\n  }\n  void dfs(vector<vector<pair<int,int>>>& g,int root){\n    stack<int> st;\n    st.emplace(root);\n    while(st.size()){\n      int u=st.top(); st.pop();\n      for(auto&[w,v]:g[u]){\n        if(v==pa[u][0]) continue;\n        pa[v][0]=u;\n        di[v][0]=w;\n        dep[v]=dep[u]+1;\n        st.emplace(v);\n      }\n    }\n  }\n  void pa_init(){\n    for(int j=1;j<LOG;++j) for(int i=0;i<n;++i){\n      int p=pa[i][j-1];\n      pa[i][j]=pa[p][j-1];\n      di[i][j]=max(di[i][j-1],di[p][j-1]);\n    }\n  }\n  int lca(int a,int b){\n    if(pa[a][LOG-1]!=pa[b][LOG-1]) return -1;\n    if(dep[a]<dep[b]) swap(a,b);\n    int d=dep[a]-dep[b];\n    for(int i=0;i<LOG;++i) if(d>>i&1) a=pa[a][i];\n    if(a==b) return a;\n    for(int i=LOG-1;i>=0;--i) if(pa[a][i]!=pa[b][i]){\n      a=pa[a][i],b=pa[b][i];\n    }\n    return pa[a][0];\n  }\n  int dis(int l,int k){\n    int res=0;\n    for(int i=0;i<LOG;++i){\n      if(k>>i&1){\n        res=max(res,di[l][i]);\n        l=pa[l][i];\n      }\n    }\n    return res;\n  }\n  int qry(int a,int b){\n    int c=lca(a,b);\n    if(c==-1) return -1;\n    return max(dis(a,dep[a]-dep[c]),dis(b,dep[b]-dep[c]));\n  }\n};\n\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n\n  int n,m,q; cin>>n>>m>>q;\n\n  dsu::init(n);\n  vector<vector<pair<int,int>>> g(n);\n  for(int i=1;i<=m;++i){\n    int a,b; cin>>a>>b; --a,--b;\n    if(dsu::m(a,b)){\n      g[a].emplace_back(i,b);\n      g[b].emplace_back(i,a);\n    }\n  }\n\n  mst::init(n);\n  for(int i=0;i<n;++i){\n    if(mst::dep[i]==-1){\n      mst::pa[i][0]=i;\n      mst::di[i][0]=0;\n      mst::dep[i]=0;\n      mst::dfs(g,i);\n    }\n  }\n  mst::pa_init();\n\n  while(q--){\n    int a,b; cin>>a>>b; --a,--b;\n    cout<<mst::qry(a,b)<<'\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "2165",
+      "name": "Tower of Hanoi",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/2165",
+      "solutionFile": "2165-Tower_of_Hanoi.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nvector<pair<int,int>>v;\nvoid dfs(int k,int i,int j){\n  if(!k) return;\n  dfs(k-1,i,6-i-j);\n  v.emplace_back(i,j);\n  dfs(k-1,6-i-j,j);\n}\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  dfs(n,1,3);\n  cout<<v.size()<<'\\n';\n  for(auto&p:v) cout<<p.first<<\" \"<<p.second<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "2205",
+      "name": "Gray Code",
+      "category": "Introductory Problems",
+      "csesUrl": "https://cses.fi/problemset/task/2205",
+      "solutionFile": "2205-Gray_Code.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  vector<string> v;\n  v.emplace_back(\"0\"); v.emplace_back(\"1\");\n  for(int i=2;i<1<<n;i<<=1){\n    for(int j=i-1;j>=0;--j) v.emplace_back(v[j]);\n    for(int j=0;j<i;++j) v[j]=\"0\"+v[j];\n    for(int j=i;j<2*i;++j) v[j]=\"1\"+v[j];\n  }\n  for(auto&s:v)cout<<s<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "2214",
+      "name": "Inverse Inversions",
+      "category": "Advanced Techniques",
+      "csesUrl": "https://cses.fi/problemset/task/2214",
+      "solutionFile": "2214-Inverse_Inversions.cpp",
+      "solutionCode": "#include <bits/stdc++.h>\nusing namespace std;\n#define int long long\n\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k; cin>>n>>k;\n  int res[n],l=1,r=n;\n  for(int i=0;i<n;++i){\n    if(k>=n-i-1) res[i]=r--,k-=n-i-1;\n    else res[i]=l++;\n  }\n  for(auto&x:res) cout<<x<<\" \"; cout<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "3220",
+      "name": "Sliding Window Sum",
+      "category": "Range Queries",
+      "csesUrl": "https://cses.fi/problemset/task/3220",
+      "solutionFile": "3220-Sliding_Window_Sum.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k; cin>>n>>k;\n  int arr[n];\n  int a,b,c; cin>>arr[0]>>a>>b>>c;\n  for(int i=1,x=arr[0];i<n;++i) arr[i]=(x*a+b)%c,x=arr[i];\n  int res=0,run=0;\n  for(int i=0;i<k;++i) run+=arr[i];\n  res^=run;\n  for(int i=k;i<n;++i){\n    run+=arr[i]-arr[i-k];\n    res^=run;\n  }\n  cout<<res<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "3221",
+      "name": "Sliding Window Minimum",
+      "category": "Range Queries",
+      "csesUrl": "https://cses.fi/problemset/task/3221",
+      "solutionFile": "3221-Sliding_Window_Minimum.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k; cin>>n>>k;\n  int arr[n];\n  int a,b,c; cin>>arr[0]>>a>>b>>c;\n  for(int i=1,x=arr[0];i<n;++i){\n    arr[i]=(x*a+b);\n    if(arr[i]>=c) arr[i]%=c;\n    x=arr[i];\n  }\n  priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;\n  int res=0;\n  for(int i=0;i<k;++i) pq.emplace(arr[i],i);\n  res^=pq.top().first;\n  for(int i=k;i<n;++i){\n    pq.emplace(arr[i],i);\n    while(pq.top().second<=i-k) pq.pop();\n    res^=pq.top().first;\n  }\n  cout<<res<<'\\n';\n  return 0;\n}\n\n\n",
+      "language": "cpp"
+    }
+  ]
+}
