@@ -368,7 +368,7 @@
       "category": "Range Queries",
       "csesUrl": "https://cses.fi/problemset/task/1649",
       "solutionFile": "1649-Dynamic_Range_Minimum_Queries.cpp",
-      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int SZ=447;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int x[n]; for(int i=0;i<n;++i) cin>>x[i];\n  int m=(n+SZ-1)/SZ,mn[m]; memset(mn,0x3f,sizeof mn);\n  for(int i=0;i<n;++i){\n    int j=i/SZ;\n    mn[j]=min(mn[j],x[i]);\n  }\n  return 0;\n}\n\n",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int SZ=447,INF=3e18;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int x[n]; for(int i=0;i<n;++i) cin>>x[i];\n  int m=(n+SZ-1)/SZ,mn[m]; fill(mn,mn+m,INF);\n  for(int i=0;i<n;++i){\n    int j=i/SZ;\n    mn[j]=min(mn[j],x[i]);\n  }\n  while(q--){\n    int t,a,b; cin>>t>>a>>b;\n    if(t==1){\n      int j=--a/SZ;\n      x[a]=b,mn[j]=INF;\n      for(int i=j*SZ;i<min(n,(j+1)*SZ);++i){\n        mn[j]=min(mn[j],x[i]);\n      }\n    }else{\n      int res=INF,i=--a/SZ,j=--b/SZ;\n      if(i==j) for(int k=a;k<=b;++k) res=min(res,x[k]);\n      else{\n        for(int k=a;k<(i+1)*SZ;++k) res=min(res,x[k]);\n        for(int k=i+1;k<j;++k) res=min(res,mn[k]);\n        for(int k=j*SZ;k<=b;++k) res=min(res,x[k]);\n      }\n      cout<<res<<'\\n';\n    }\n  }\n  return 0;\n}\n\n",
       "language": "cpp"
     },
     {
