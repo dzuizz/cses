@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "totalProblems": 61,
+  "totalProblems": 62,
   "problems": [
     {
       "id": "1068",
@@ -59,7 +59,7 @@
     {
       "id": "1080",
       "name": "Empty String",
-      "category": "String Algorithms",
+      "category": "Counting Problems",
       "csesUrl": "https://cses.fi/problemset/task/1080",
       "solutionFile": "1080-Empty_String.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int M=1e9+7;\n\ninline int add(int a,int b){\n  a+=b;\n  if(a>=M) a-=M;\n  return a;\n}\n\ninline int mul(int a,int b){\n  return a*b%M;\n}\n\nint binpow(int a,int b){\n  int res=1;\n  while(b){\n    if(b&1) res=mul(res,a);\n    a=mul(a,a),b>>=1;\n  }\n  return res;\n}\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  string s; cin>>s;\n  int n=s.size();\n  if(n&1){\n    cout<<\"0\\n\";\n    return 0;\n  }\n\n  int f[n/2+1]; f[0]=1;\n  for(int i=1;i<=n/2;++i) f[i]=mul(f[i-1],i);\n  int invf[n/2+1]; invf[0]=1;\n  for(int i=1;i<=n/2;++i) invf[i]=binpow(f[i],M-2);\n  auto C=[&](const int&N,const int&K){\n    return mul(f[N],mul(invf[K],invf[N-K]));\n  };\n\n  int dp[n][n]{};\n  for(int i=0;i<n-1;++i) if(s[i]==s[i+1]){\n    dp[i][i+1]=1;\n  }\n  for(int l=4;l<=n;l+=2){\n    for(int i=0;i<=n-l;++i){\n      int j=i+l-1;\n      for(int k=i+1;k<=j;k+=2) if(s[i]==s[k]){\n        dp[i][j]=add(dp[i][j],\n            mul((i+1<k?dp[i+1][k-1]:1),\n            mul((k<j?dp[k+1][j]:1),\n            C(l/2,(j-k)/2))));\n      }\n    }\n  }\n  //for(int i=0;i<n;++i){ for(int j=0;j<n;++j) cout<<dp[i][j]<<\" \"; cout<<'\\n'; }\n  cout<<dp[0][n-1]<<'\\n';\n  return 0;\n}\n\n\n",
@@ -372,6 +372,15 @@
       "language": "cpp"
     },
     {
+      "id": "1651",
+      "name": "Range Update Queries",
+      "category": "Range Queries",
+      "csesUrl": "https://cses.fi/problemset/task/1651",
+      "solutionFile": "1651-Range_Update_Queries.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int N=2e5+5;\nint ft[N];\nint sum(int x){\n  int res=0;\n  for(;x>0;x-=(x&-x)) res+=ft[x];\n  return res;\n}\nvoid upd(int x,int v){ for(;x<N;x+=(x&-x)) ft[x]+=v; }\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int x[n]; for(int i=1;i<=n;++i){\n    cin>>x[i];\n    upd(i,x[i]);\n    upd(i+1,-x[i]);\n  }\n  while(q--){\n    int t; cin>>t;\n    if(t==1){\n      int a,b,u; cin>>a>>b>>u;\n      upd(a,u);\n      upd(b+1,-u);\n    }else{\n      int k; cin>>k;\n      cout<<sum(k)<<'\\n';\n    }\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
       "id": "1652",
       "name": "Forest Queries",
       "category": "Range Queries",
@@ -428,7 +437,7 @@
     {
       "id": "1690",
       "name": "Hamiltonian Flights",
-      "category": "Dynamic Programming",
+      "category": "Graph Algorithms",
       "csesUrl": "https://cses.fi/problemset/task/1690",
       "solutionFile": "1690-Hamiltonian_Flights.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int M=1e9+7;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,m; cin>>n>>m;\n  vector<int> p[n];\n  for(int i=0;i<m;++i){\n    int u,v; cin>>u>>v;\n    p[--v].emplace_back(--u);\n  }\n  int dp[1<<n][n]; memset(dp,0,sizeof dp);\n  dp[1][0]=1;\n  for(int msk=0;msk<(1<<n);++msk){\n    if((msk>>(n-1)&1)&&msk!=((1<<n)-1)) continue;\n    for(int i=1;i<n;++i) if(msk>>i&1){\n      int p_msk=msk^(1<<i);\n      for(int&j:p[i]){\n        dp[msk][i]=(dp[msk][i]+dp[p_msk][j])%M;\n      }\n    }\n  }\n  cout<<dp[(1<<n)-1][n-1]<<'\\n';\n  return 0;\n}\n\n",
@@ -464,7 +473,7 @@
     {
       "id": "1750",
       "name": "Planets Queries I",
-      "category": "Tree Algorithms",
+      "category": "Graph Algorithms",
       "csesUrl": "https://cses.fi/problemset/task/1750",
       "solutionFile": "1750-Planets_Queries_I.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int pa[n][32];\n  for(int i=0;i<n;++i){\n    cin>>pa[i][0];\n    --pa[i][0];\n  }\n  for(int j=0;j<31;++j) for(int i=0;i<n;++i)\n    pa[i][j+1]=pa[pa[i][j]][j];\n  while(q--){\n    int x,k; cin>>x>>k; --x;\n    for(int i=0;i<32;++i) if(k>>i&1){\n      x=pa[x][i];\n    }\n    cout<<x+1<<'\\n';\n  }\n  return 0;\n}\n\n",
@@ -491,7 +500,7 @@
     {
       "id": "2064",
       "name": "Bracket Sequences I",
-      "category": "Advanced Techniques",
+      "category": "Mathematics",
       "csesUrl": "https://cses.fi/problemset/task/2064",
       "solutionFile": "2064-Bracket_Sequences_I.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int unsigned long long\nconst int m=1e9+7;\nint binpow(int a,int b){\n  int ret=1;\n  while(b){\n    if(b&1) ret=ret*a%m;\n    a=a*a%m,b>>=1;\n  }\n  return ret;\n}\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  if(n&1){  // n is odd <=> no valid bracket sequences\n    cout<<\"0\\n\";\n    return 0;\n  }\n  int ans=1;\n  for(int i=2; i<=(n>>1); ++i){\n    ans = ans * (4*i-2) % m;\n    ans = ans * binpow(i+1,m-2) % m;\n  }\n  cout << ans << '\\n';\n  return 0;\n}\n\n",
@@ -527,7 +536,7 @@
     {
       "id": "2214",
       "name": "Inverse Inversions",
-      "category": "Advanced Techniques",
+      "category": "Construction Problems",
       "csesUrl": "https://cses.fi/problemset/task/2214",
       "solutionFile": "2214-Inverse_Inversions.cpp",
       "solutionCode": "#include <bits/stdc++.h>\nusing namespace std;\n#define int long long\n\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k; cin>>n>>k;\n  int res[n],l=1,r=n;\n  for(int i=0;i<n;++i){\n    if(k>=n-i-1) res[i]=r--,k-=n-i-1;\n    else res[i]=l++;\n  }\n  for(auto&x:res) cout<<x<<\" \"; cout<<'\\n';\n  return 0;\n}\n\n",
@@ -536,7 +545,7 @@
     {
       "id": "3220",
       "name": "Sliding Window Sum",
-      "category": "Range Queries",
+      "category": "Sliding Window Problems",
       "csesUrl": "https://cses.fi/problemset/task/3220",
       "solutionFile": "3220-Sliding_Window_Sum.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k; cin>>n>>k;\n  int arr[n];\n  int a,b,c; cin>>arr[0]>>a>>b>>c;\n  for(int i=1,x=arr[0];i<n;++i) arr[i]=(x*a+b)%c,x=arr[i];\n  int res=0,run=0;\n  for(int i=0;i<k;++i) run+=arr[i];\n  res^=run;\n  for(int i=k;i<n;++i){\n    run+=arr[i]-arr[i-k];\n    res^=run;\n  }\n  cout<<res<<'\\n';\n  return 0;\n}\n\n",
@@ -545,7 +554,7 @@
     {
       "id": "3221",
       "name": "Sliding Window Minimum",
-      "category": "Range Queries",
+      "category": "Sliding Window Problems",
       "csesUrl": "https://cses.fi/problemset/task/3221",
       "solutionFile": "3221-Sliding_Window_Minimum.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k; cin>>n>>k;\n  int arr[n];\n  int a,b,c; cin>>arr[0]>>a>>b>>c;\n  for(int i=1,x=arr[0];i<n;++i){\n    arr[i]=(x*a+b);\n    if(arr[i]>=c) arr[i]%=c;\n    x=arr[i];\n  }\n  priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;\n  int res=0;\n  for(int i=0;i<k;++i) pq.emplace(arr[i],i);\n  res^=pq.top().first;\n  for(int i=k;i<n;++i){\n    pq.emplace(arr[i],i);\n    while(pq.top().second<=i-k) pq.pop();\n    res^=pq.top().first;\n  }\n  cout<<res<<'\\n';\n  return 0;\n}\n\n\n",
