@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "totalProblems": 62,
+  "totalProblems": 63,
   "problems": [
     {
       "id": "1068",
@@ -369,6 +369,15 @@
       "csesUrl": "https://cses.fi/problemset/task/1649",
       "solutionFile": "1649-Dynamic_Range_Minimum_Queries.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int SZ=447;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int x[n]; for(int i=0;i<n;++i) cin>>x[i];\n  int m=(n+SZ-1)/SZ,mn[m]; memset(mn,0x3f,sizeof mn);\n  for(int i=0;i<n;++i){\n    int j=i/SZ;\n    mn[j]=min(mn[j],x[i]);\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1650",
+      "name": "Range Xor Queries",
+      "category": "Range Queries",
+      "csesUrl": "https://cses.fi/problemset/task/1650",
+      "solutionFile": "1650-Range_Xor_Queries.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int a[n+1]; for(int i=1;i<=n;++i){\n    cin>>a[i];\n  }\n  int pxor[n+1]; pxor[0]=0;\n  for(int i=1;i<=n;++i) pxor[i]=pxor[i-1]^a[i];\n  while(q--){\n    int a,b; cin>>a>>b;\n    cout<<(pxor[b]^pxor[a-1])<<'\\n';\n  }\n  return 0;\n}\n\n",
       "language": "cpp"
     },
     {
