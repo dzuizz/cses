@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "totalProblems": 63,
+  "totalProblems": 64,
   "problems": [
     {
       "id": "1068",
@@ -153,6 +153,15 @@
       "csesUrl": "https://cses.fi/problemset/task/1143",
       "solutionFile": "1143-Hotel_Queries.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nstruct node{\n  int l,r,v,m;\n  node *lf,*rg;\n  node(int _l,int _r,int a[]): l(_l),r(_r),m((_l+_r)>>1),v(0){\n    if(l==r) v=a[l];\n    else\n      lf=new node(l,m,a),\n      rg=new node(m+1,r,a),\n      v=max(lf->v,rg->v);\n  }\n  int qry(int x){\n    if(l==r){\n      return l;\n    }\n    return (lf->v<x?rg->qry(x):lf->qry(x));\n  }\n  void upd(int x,int cv){\n    if(l==r){\n      v=cv;\n      return;\n    }\n    (x<=m?lf:rg)->upd(x,cv);\n    v=max(lf->v,rg->v);\n  }\n}*root;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,m; cin>>n>>m;\n  int a[n];\n  for(int i=0;i<n;++i) cin>>a[i];\n  root=new node(0,n-1,a);\n  while(m--){\n    int x; cin>>x;\n    if(x>root->v) cout<<\"0 \";\n    else{\n      int u=root->qry(x);\n      a[u]-=x;\n      root->upd(u,a[u]);\n      cout<<u+1<<\" \";\n    }\n  }\n  cout<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1146",
+      "name": "Counting Bits",
+      "category": "Bitwise Operations",
+      "csesUrl": "https://cses.fi/problemset/task/1146",
+      "solutionFile": "1146-Counting_Bits.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,ans=0; cin>>n;\n  for(int k=1;k<=n;k<<=1){\n    ans+=(n+1)/(k<<1)*k;\n    ans+=max((n+1)%(k<<1)-k,0ll);\n  }\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
       "language": "cpp"
     },
     {
