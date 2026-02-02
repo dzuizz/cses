@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "totalProblems": 64,
+  "totalProblems": 66,
   "problems": [
     {
       "id": "1068",
@@ -153,6 +153,15 @@
       "csesUrl": "https://cses.fi/problemset/task/1143",
       "solutionFile": "1143-Hotel_Queries.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nstruct node{\n  int l,r,v,m;\n  node *lf,*rg;\n  node(int _l,int _r,int a[]): l(_l),r(_r),m((_l+_r)>>1),v(0){\n    if(l==r) v=a[l];\n    else\n      lf=new node(l,m,a),\n      rg=new node(m+1,r,a),\n      v=max(lf->v,rg->v);\n  }\n  int qry(int x){\n    if(l==r){\n      return l;\n    }\n    return (lf->v<x?rg->qry(x):lf->qry(x));\n  }\n  void upd(int x,int cv){\n    if(l==r){\n      v=cv;\n      return;\n    }\n    (x<=m?lf:rg)->upd(x,cv);\n    v=max(lf->v,rg->v);\n  }\n}*root;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,m; cin>>n>>m;\n  int a[n];\n  for(int i=0;i<n;++i) cin>>a[i];\n  root=new node(0,n-1,a);\n  while(m--){\n    int x; cin>>x;\n    if(x>root->v) cout<<\"0 \";\n    else{\n      int u=root->qry(x);\n      a[u]-=x;\n      root->upd(u,a[u]);\n      cout<<u+1<<\" \";\n    }\n  }\n  cout<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1144",
+      "name": "Salary Queries",
+      "category": "Range Queries",
+      "csesUrl": "https://cses.fi/problemset/task/1144",
+      "solutionFile": "1144-Salary_Queries.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\nstruct node{\n  int l,r,m,v;\n  node *lf,*rg;\n  node(int _l,int _r):l(_l),r(_r),m((_l+_r)>>1),v(0) {\n    lf=nullptr,\n    rg=nullptr;\n  }\n  void upd(int x,int d){\n    if(l==r){\n      v+=d;\n      return;\n    }\n    if(x<=m){ if(!lf) lf=new node(l,m);\n    }else if(!rg) rg=new node(m+1,r);\n    (x<=m?lf:rg)->upd(x,d);\n    v=(lf?lf->v:0)+(rg?rg->v:0);\n  }\n  int qry(int a,int b){\n    if(a<=l && r<=b) return v;\n    if(a>r || b<l) return 0;\n    return (lf?lf->qry(a,b):0)+(rg?rg->qry(a,b):0);\n  }\n}*root;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int p[n]; for(int i=0;i<n;++i){\n    cin>>p[i];\n  }\n  root=new node(1,1e9);\n  for(int i=0;i<n;++i) root->upd(p[i],1);\n  while(q--){\n    char c; int a,b;\n    cin>>c>>a>>b;\n    if(c=='?') cout<<root->qry(a,b)<<'\\n';\n    else{\n      root->upd(p[--a],-1);\n      p[a]=b;\n      root->upd(p[a],1);\n    }\n  }\n  return 0;\n}\n\n",
       "language": "cpp"
     },
     {
@@ -486,6 +495,15 @@
       "csesUrl": "https://cses.fi/problemset/task/1746",
       "solutionFile": "1746-Array_Description.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int M=1e9+7;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,m; cin>>n>>m;\n  int a[n]; for(auto&x:a) cin>>x;\n  int dp[n][m+2]{};\n  if(a[0]==0) for(int j=1;j<=m;++j) dp[0][j]=1;\n  else dp[0][a[0]]=1;\n  for(int i=1;i<n;++i){\n    if(a[i]==0) for(int j=1;j<=m;++j){\n      dp[i][j]=(dp[i-1][j-1]+dp[i-1][j]+dp[i-1][j+1])%M;\n    }else dp[i][a[i]]=(dp[i-1][a[i]-1]+dp[i-1][a[i]]+dp[i-1][a[i]+1])%M;\n  }\n  int ans=0;\n  for(int j=1;j<=m;++j) ans+=dp[n-1][j],ans%=M;\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1749",
+      "name": "List Removals",
+      "category": "Range Queries",
+      "csesUrl": "https://cses.fi/problemset/task/1749",
+      "solutionFile": "1749-List_Removals.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nint n;\nvoid upd(int *fw,int x,int v){\n  for(++x;x<=n;x+=(x&-x)) fw[x]+=v;\n}\nint sum(int *fw,int x){\n  int res=0;\n  for(++x;x>0;x-=(x&-x)) res+=fw[x];\n  return res;\n}\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  cin>>n;\n  int a[n]; for(int i=0;i<n;++i){\n    cin>>a[i];\n  }\n  int fw[n+5]{};\n  for(int i=0;i<n;++i){\n    int x; cin>>x; --x;\n    int l=0,r=n-1,m;\n    while(l<r){\n      m=(l+r)>>1;\n      int cnt=sum(fw,m);\n      if(cnt+x <= m) r=m;\n      else l=m+1;\n    }\n    cout<<a[l]<<\" \";\n    upd(fw,l,1);\n  }\n  cout<<'\\n';\n  return 0;\n}\n\n",
       "language": "cpp"
     },
     {
