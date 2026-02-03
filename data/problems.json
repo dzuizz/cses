@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "totalProblems": 67,
+  "totalProblems": 68,
   "problems": [
     {
       "id": "1068",
@@ -594,6 +594,15 @@
       "csesUrl": "https://cses.fi/problemset/task/3221",
       "solutionFile": "3221-Sliding_Window_Minimum.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k; cin>>n>>k;\n  int arr[n];\n  int a,b,c; cin>>arr[0]>>a>>b>>c;\n  for(int i=1,x=arr[0];i<n;++i){\n    arr[i]=(x*a+b);\n    if(arr[i]>=c) arr[i]%=c;\n    x=arr[i];\n  }\n  priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;\n  int res=0;\n  for(int i=0;i<k;++i) pq.emplace(arr[i],i);\n  res^=pq.top().first;\n  for(int i=k;i<n;++i){\n    pq.emplace(arr[i],i);\n    while(pq.top().second<=i-k) pq.pop();\n    res^=pq.top().first;\n  }\n  cout<<res<<'\\n';\n  return 0;\n}\n\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "3405",
+      "name": "Sliding Window Or",
+      "category": "Sliding Window Problems",
+      "csesUrl": "https://cses.fi/problemset/task/3405",
+      "solutionFile": "3405-Sliding_Window_Or.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k,x,a,b,c; cin>>n>>k>>x>>a>>b>>c;\n  int po[n],so[n],i=1; for(po[0]=x,so[0]=x;i<n;++i)\n    po[i]=(po[i-1]*a+b)%c,so[i]=po[i];\n  for(int l=0,r=k-1;l<n;l+=k,r+=k,r=min(r,n-1)){\n    for(i=l+1;i<=r;++i) po[i]|=po[i-1];\n    for(i=r-1;i>=l;--i) so[i]|=so[i+1];\n  }\n  int ans=0;\n  for(i=0;i<=n-k;++i)\n    ans^=(so[i]|po[i+k-1]);\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
       "language": "cpp"
     },
     {
