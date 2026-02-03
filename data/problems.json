@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "totalProblems": 75,
+  "totalProblems": 76,
   "problems": [
     {
       "id": "1068",
@@ -603,6 +603,15 @@
       "csesUrl": "https://cses.fi/problemset/task/2216",
       "solutionFile": "2216-Collecting_Numbers.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  int p[n],ans=1; for(int i=0,x;i<n;++i)\n    cin>>x,p[--x]=i;\n  for(int i=1;i<n;++i)\n    if(p[i]<p[i-1]) ++ans;\n  cout<<ans<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "2217",
+      "name": "Collecting Numbers II",
+      "category": "Sorting and Searching",
+      "csesUrl": "https://cses.fi/problemset/task/2217",
+      "solutionFile": "2217-Collecting_Numbers_II.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,q; cin>>n>>q;\n  int a[n+2],p[n+2],ans=1; p[0]=0,p[n+1]=n+1;\n  for(int i=1;i<=n;++i)\n    cin>>a[i],p[a[i]]=i;\n  for(int i=1;i<=n;++i)\n    if(p[i]<p[i-1]) ++ans;\n  while(q--){\n    int r,s; cin>>r>>s;\n    int x=a[r],y=a[s];\n    if(x>y) swap(x,y);\n    ans-=(p[x-1]>p[x])+(p[x]>p[x+1])\n        +(p[y-1]>p[y])+(p[y]>p[y+1]);\n    if(y==x+1) ans+=(p[x]>p[y]);\n    swap(a[r],a[s]); swap(p[x],p[y]);\n    ans+=(p[x-1]>p[x])+(p[x]>p[x+1])\n        +(p[y-1]>p[y])+(p[y]>p[y+1]);\n    if(y==x+1) ans-=(p[x]>p[y]);\n    cout<<ans<<'\\n';\n  }\n  return 0;\n}\n\n",
       "language": "cpp"
     },
     {
