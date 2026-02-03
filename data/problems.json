@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "totalProblems": 71,
+  "totalProblems": 72,
   "problems": [
     {
       "id": "1068",
@@ -54,6 +54,15 @@
       "csesUrl": "https://cses.fi/problemset/task/1074",
       "solutionFile": "1074-Stick_Lengths.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n; cin>>n;\n  int a[n]; for(auto&x:a) cin>>x;\n  sort(a,a+n);\n  int x=a[n/2],res=0;\n  for(int i=0;i<n;++i){\n    res+=abs(a[i]-x);\n  }\n  cout<<res<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1076",
+      "name": "Sliding Window Median",
+      "category": "Sliding Window Problems",
+      "csesUrl": "https://cses.fi/problemset/task/1076",
+      "solutionFile": "1076-Sliding_Window_Median.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k; cin>>n>>k;\n  multiset<int> lf,rg;\n  int a[n]; for(int i=0,res=0;i<n;++i){\n    cin>>a[i];\n    if(lf.size() && *lf.rbegin()<a[i]) rg.emplace(a[i]);\n    else lf.emplace(a[i]);\n    while(rg.size()>lf.size()) lf.emplace(*rg.begin()),rg.erase(rg.begin());\n    while(lf.size()-rg.size()>1) rg.emplace(*lf.rbegin()),lf.erase(lf.find(*lf.rbegin()));\n    if(i>=k){\n      if(lf.size() && *lf.rbegin()<a[i-k]) rg.erase(rg.find(a[i-k]));\n      else lf.erase(lf.find(a[i-k]));\n      while(rg.size()>lf.size()) lf.emplace(*rg.begin()),rg.erase(rg.begin());\n      while(lf.size()-rg.size()>1) rg.emplace(*lf.rbegin()),lf.erase(lf.find(*lf.rbegin()));\n    }\n    if(i>=k-1) cout<<*lf.rbegin()<<\" \";\n  }\n  cout<<'\\n';\n  return 0;\n}\n\n",
       "language": "cpp"
     },
     {
