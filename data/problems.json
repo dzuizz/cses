@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "totalProblems": 68,
+  "totalProblems": 69,
   "problems": [
     {
       "id": "1068",
@@ -594,6 +594,15 @@
       "csesUrl": "https://cses.fi/problemset/task/3221",
       "solutionFile": "3221-Sliding_Window_Minimum.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k; cin>>n>>k;\n  int arr[n];\n  int a,b,c; cin>>arr[0]>>a>>b>>c;\n  for(int i=1,x=arr[0];i<n;++i){\n    arr[i]=(x*a+b);\n    if(arr[i]>=c) arr[i]%=c;\n    x=arr[i];\n  }\n  priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;\n  int res=0;\n  for(int i=0;i<k;++i) pq.emplace(arr[i],i);\n  res^=pq.top().first;\n  for(int i=k;i<n;++i){\n    pq.emplace(arr[i],i);\n    while(pq.top().second<=i-k) pq.pop();\n    res^=pq.top().first;\n  }\n  cout<<res<<'\\n';\n  return 0;\n}\n\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "3222",
+      "name": "Sliding Window Distinct Values",
+      "category": "Sliding Window Problems",
+      "csesUrl": "https://cses.fi/problemset/task/3222",
+      "solutionFile": "3222-Sliding_Window_Distinct_Values.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k; cin>>n>>k;\n  map<int,int> mp;\n  int a[n]; for(int i=0,res=0;i<n;++i){\n    cin>>a[i];\n    if(++mp[a[i]]==1) ++res;\n    if(i>=k) if(!--mp[a[i-k]]) --res;\n    if(i>=k-1) cout<<res<<\" \";\n  }\n  cout<<'\\n';\n  return 0;\n}\n\n",
       "language": "cpp"
     },
     {
