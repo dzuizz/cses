@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "totalProblems": 76,
+  "totalProblems": 77,
   "problems": [
     {
       "id": "1068",
@@ -432,6 +432,15 @@
       "csesUrl": "https://cses.fi/problemset/task/1652",
       "solutionFile": "1652-Forest_Queries.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n\n  int N, Q;\n  cin >> N >> Q;\n\n  int prefSum[N+1][N+1];\n  memset(prefSum, 0, sizeof prefSum);\n\n  for (int i = 1; i <= N; ++i) {\n    for (int j = 1; j <= N; ++j) {\n      char c; cin >> c;\n      prefSum[i][j] = prefSum[i-1][j] + prefSum[i][j-1] + (c == '*') - prefSum[i-1][j-1];\n    }\n  }\n\n  while (Q--) {\n    int i1, j1, i2, j2;\n    cin >> i1 >> j1 >> i2 >> j2;\n    cout << prefSum[i2][j2] - prefSum[i1-1][j2] - prefSum[i2][j1-1] + prefSum[i1-1][j1-1] << '\\n';\n  }\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "1667",
+      "name": "Message Route",
+      "category": "Graph Algorithms",
+      "csesUrl": "https://cses.fi/problemset/task/1667",
+      "solutionFile": "1667-Message_Route.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,m; cin>>n>>m;\n  vector<int> adj[n];\n  for(int i=0,u,v;i<m;++i)\n    cin>>u>>v,\n    adj[--u].emplace_back(--v),\n    adj[v].emplace_back(u);\n  int di[n+1]; memset(di,0x3f,sizeof di);\n  di[0]=0;\n  queue<int> q; q.emplace(0);\n  while(q.size()){\n    int u=q.front(); q.pop();\n    for(auto&v:adj[u]) if(di[v]==di[n]){\n      q.emplace(v);\n      di[v]=di[u]+1;\n    }\n  }\n  if(di[n-1]==di[n]) cout<<\"IMPOSSIBLE\\n\";\n  else{\n    vector<int> v; v.emplace_back(n-1);\n    for(int i=di[n-1]-1;i>=0;--i){\n      int nx;\n      for(auto&u:adj[v.back()])\n        if(di[u]==i) nx=u;\n      v.emplace_back(nx);\n    }\n    cout<<di[n-1]+1<<'\\n';\n    for(int i=(int)v.size()-1;i>=0;--i) cout<<v[i]+1<<\" \"; cout<<'\\n';\n  }\n  return 0;\n}\n\n",
       "language": "cpp"
     },
     {
