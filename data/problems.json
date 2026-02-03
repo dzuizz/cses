@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "totalProblems": 73,
+  "totalProblems": 74,
   "problems": [
     {
       "id": "1068",
@@ -630,6 +630,15 @@
       "csesUrl": "https://cses.fi/problemset/task/3222",
       "solutionFile": "3222-Sliding_Window_Distinct_Values.cpp",
       "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k; cin>>n>>k;\n  map<int,int> mp;\n  int a[n]; for(int i=0,res=0;i<n;++i){\n    cin>>a[i];\n    if(++mp[a[i]]==1) ++res;\n    if(i>=k) if(!--mp[a[i-k]]) --res;\n    if(i>=k-1) cout<<res<<\" \";\n  }\n  cout<<'\\n';\n  return 0;\n}\n\n",
+      "language": "cpp"
+    },
+    {
+      "id": "3223",
+      "name": "Sliding Window Inversions",
+      "category": "Sliding Window Problems",
+      "csesUrl": "https://cses.fi/problemset/task/3223",
+      "solutionFile": "3223-Sliding_Window_Inversions.cpp",
+      "solutionCode": "#include<bits/stdc++.h>\nusing namespace std;\n#define int long long\nconstexpr int MAXA=1e9;\nstruct node{\n  int l,r,m,v;\n  node *lf,*rg;\n  node(int _l,int _r):l(_l),r(_r),m((_l+_r)>>1),v(0){\n    lf=nullptr,rg=nullptr;\n  }\n  void upd(int x,int d){\n    if(l==r){\n      v+=d;\n      return;\n    }\n    if(x<=m){ if(!lf) lf=new node(l,m);\n    }else if(!rg) rg=new node(m+1,r);\n    (x<=m?lf:rg)->upd(x,d);\n    v=(lf?lf->v:0)+(rg?rg->v:0);\n  }\n  int qry(int x,int y){\n    if(x<=l && r<=y) return v;\n    if(x>r || y<l) return 0;\n    return (lf?lf->qry(x,y):0)+(rg?rg->qry(x,y):0);\n  }\n}*root;\nsigned main(){\n  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n  int n,k; cin>>n>>k;\n  int a[n]; for(int i=0;i<n;++i)\n    cin>>a[i];\n  root=new node(1,MAXA);\n  int res=0;\n  for(int i=0;i<n;++i){\n    res+=root->qry(a[i]+1,MAXA);\n    root->upd(a[i],1);\n    if(i>=k) res-=root->qry(1,a[i-k]-1),root->upd(a[i-k],-1);\n    if(i>=k-1) cout<<res<<\" \";\n  }\n  cout<<'\\n';\n  return 0;\n}\n\n",
       "language": "cpp"
     },
     {
